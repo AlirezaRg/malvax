@@ -1,59 +1,62 @@
-# MalvaX — Linux Malware Analysis and Behavioral Sandbox
+# MalvaX: Linux Malware Analysis and Behavioral Sandbox
 
-MalvaX is a defensive, academic analysis platform. It does **not** create malware. Its job is
-to hash, describe, and (in later phases) observe suspicious Linux ELF binaries inside an
-isolated laboratory VM.
+MalvaX is a **defensive** academic platform. It analyzes suspicious Linux ELF files and turns what it observes into a structured, evidence-backed report. It does not create malware, and it does not run samples on the host. Use it only in an isolated laboratory.
 
-**Current status: Phase 1 (architecture + sample intake) is implemented and tested.**
-Later phases are documented in `docs/architecture.md` and are not yet built.
+> **Safety:** Do not run unknown samples on your own machine. The planned execution path is a dedicated, disposable VM with no default network. The sandbox controller is not connected yet, so dynamic results are not produced.
 
-## Quick start
+## Roadmap and status
+
+| Phase | Scope | Status |
+|---|---|---|
+| 1 | Sample intake: SHA-256/SHA-1/MD5, type by magic bytes, lifecycle state machine | Done, tested on Linux |
+| 2 | Static ELF analysis: headers, sections, imports, PIE/NX/RELRO/canary | Done, checked against `readelf` |
+| 3 | Strings indicators and YARA with a modular rule tree | Done |
+| 4 | Sandbox VM controller (revert, run, collect) | Partly done manually; **automation not built** |
+| 5 | Process monitoring from `/proc` and process tree | Done |
+| 6 | Filesystem monitoring by snapshot diff | Done |
+| 7 | Network monitoring from `/proc/net` with owner attribution | Done |
+| 8 | System-call monitoring with strace (security calls only) | Done (parser tested with hand-written traces) |
+| 9 | Behavior correlation with documented rules and evidence | Done |
+| 10 | Transparent risk score (capped components, reasons, evidence) | Done |
+| 11 | Reports as JSON and HTML (untrusted text escaped) | Done; **PDF not built** |
+| 12 | FastAPI backend, PostgreSQL, Redis queue, worker | Done |
+| 13 | Next.js frontend (dashboard, samples, analyses, reports) | Done |
+| 14 | Authentication: Admin, Analyst, Viewer roles; Argon2; JWT | Done |
+| 15 | AI summary from structured evidence only, validated output | Done (offline by default) |
+| 16 | Prometheus metrics, Grafana dashboard | Done |
+| 17 | Tests: unit, API, worker, end-to-end pipeline | Done; coverage about 94% |
+| 18 | Evaluation harness | Static part done; **dynamic and static+dynamic not measured** |
+| 19 | Documentation (`docs/`) and defense questions | In progress |
+
+## What is not done yet
+
+- Connecting the sandbox: the controller must revert the VM snapshot, run a sample under limits, and collect telemetry. Until then, all dynamic metrics are `NOT_MEASURED`.
+- Measured dynamic results and the static vs dynamic comparison.
+- Alembic migrations, audit logs, refresh tokens, and shadcn/ui components.
+- PDF export.
+
+## Quick start (development)
 
 ```bash
-cd malvax
-python -m pip install -e ".[dev]"
-python -m pytest -q
-python -m ruff check .
+python -m venv .venv && .venv/bin/pip install -e ".[dev]"
+.venv/bin/python -m pytest -q
+.venv/bin/python -m ruff check .
 ```
 
-Phase 1 API surface (Python):
-
-```python
-from pathlib import Path
-from malvax.intake import intake_sample
-from malvax.store import SampleStore
-
-meta = intake_sample(Path("suspect.bin"), original_name="suspect.bin")
-store = SampleStore("malvax.db")
-sample = store.add_sample(meta)  # SHA-256 is the dedup key
-```
+Environment variables used by the API and worker: `MALVAX_DATABASE_URL`, `MALVAX_REDIS_URL`, `MALVAX_STORAGE_DIR`, `MALVAX_JWT_SECRET`, `MALVAX_CORS_ORIGINS`. Secrets must come from the environment, never from the code.
 
 ## Layout
 
 ```
-malvax/
-├── malvax/
-│   ├── intake.py      hashing, magic-byte file type, filename sanitization, size limits
-│   ├── lifecycle.py   analysis state machine
-│   └── store.py       SQLite store for samples and state transitions
-├── tests/             pytest suite (unit tests for intake, lifecycle, store)
-├── docs/              architecture, threat model, sandbox security, roadmap
-├── pyproject.toml     ruff and pytest configuration
-└── README.md
+malvax/          core library: intake, ELF, strings, YARA, monitors, correlation, risk, report, API, worker
+frontend/        Next.js interface
+rules/           YARA rules (laboratory rules only)
+experiments/     static evaluation harness and results
+deploy/          Prometheus and Grafana configuration
+tests/           pytest suite
+docs/            architecture, threat model, sandbox security, limitations
 ```
 
-Planned directories (`analyzer/`, `sandbox/`, `collectors/`, `detection/`, `rules/`,
-`lab_samples/`, `lab_network/`, `backend/`, `frontend/`, `deploy/`, `experiments/`) are created
-when their phase starts. Empty placeholder folders are not committed.
+## License
 
-## Safety
-
-- Phase 1 never executes uploaded files.
-- No `shell=True`, no `os.system`. External tools will be called with explicit argument lists.
-- Samples are untrusted input at every stage.
-- Do not run samples on the host. Use the Phase 4 VM once it exists.
-
-## Limitations
-
-See `docs/architecture.md` §8 and `docs/threat-model.md`. Measured performance and detection
-accuracy: **NOT YET MEASURED**.
+MIT. See [LICENSE](LICENSE).
