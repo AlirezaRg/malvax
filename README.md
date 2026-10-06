@@ -11,7 +11,7 @@ MalvaX is a **defensive** academic platform. It analyzes suspicious Linux ELF fi
 | 1 | Sample intake: SHA-256/SHA-1/MD5, type by magic bytes, lifecycle state machine | Done, tested on Linux |
 | 2 | Static ELF analysis: headers, sections, imports, PIE/NX/RELRO/canary | Done, checked against `readelf` |
 | 3 | Strings indicators and YARA with a modular rule tree | Done |
-| 4 | Sandbox VM controller (revert, run, collect) | Partly done manually; **automation not built** |
+| 4 | Sandbox VM controller (revert, run, collect) | Done: real VM run from WSL, 9 runs with telemetry (see `docs/sandbox-setup.md`) |
 | 5 | Process monitoring from `/proc` and process tree | Done |
 | 6 | Filesystem monitoring by snapshot diff | Done |
 | 7 | Network monitoring from `/proc/net` with owner attribution | Done |
@@ -25,12 +25,13 @@ MalvaX is a **defensive** academic platform. It analyzes suspicious Linux ELF fi
 | 15 | AI summary from structured evidence only, validated output | Done (offline by default) |
 | 16 | Prometheus metrics, Grafana dashboard | Done |
 | 17 | Tests: unit, API, worker, end-to-end pipeline | Done; coverage about 94% |
-| 18 | Evaluation harness | Static part done; **dynamic and static+dynamic not measured** |
-| 19 | Documentation (`docs/`) and defense questions | In progress |
+| 18 | Evaluation harness | Static and 9 real dynamic runs measured; combined static+dynamic detection **not measured** |
+| 19 | Documentation (`docs/`) and defense questions | Done for setup, limitations, evaluation, defense; see `docs/` |
 
 ## What is not done yet
 
-- Connecting the sandbox: the controller must revert the VM snapshot, run a sample under limits, and collect telemetry. Until then, all dynamic metrics are `NOT_MEASURED`.
+- System-call collection (`strace` needs root inside the guest).
+- Combined static + dynamic detection measured against labels.
 - Measured dynamic results and the static vs dynamic comparison.
 - Alembic migrations, audit logs, refresh tokens, and shadcn/ui components.
 - PDF export.

@@ -148,6 +148,7 @@ def _network(connections: list[Connection]) -> list[Contribution]:
                 "network", PER_EXTERNAL_CONNECTION,
                 f"Connection to non-loopback address {conn.destination}:"
                 f"{conn.destination_port}",
+                evidence=(f"socket-inode:{conn.inode}",),
             ))
     return out
 
