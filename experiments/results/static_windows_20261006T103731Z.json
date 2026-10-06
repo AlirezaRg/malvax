@@ -1,0 +1,317 @@
+{
+  "generated_at": "2026-10-06T10:37:30.993594+00:00",
+  "host": {
+    "platform": "Windows-11-10.0.26300-SP0",
+    "python": "3.12.10"
+  },
+  "runs_per_sample": 20,
+  "dataset_size": 6,
+  "caveat": "Synthetic samples with author-written labels. Measures detector/design consistency, not detection performance on real malware.",
+  "confusion": {
+    "tp": 3,
+    "fp": 0,
+    "tn": 2,
+    "fn": 1
+  },
+  "precision": 1.0,
+  "recall": 0.75,
+  "static_only": {
+    "clean_text": {
+      "label_positive": false,
+      "predicted_positive": false,
+      "evidence": {
+        "string_indicator_kinds": [],
+        "yara_rules": []
+      },
+      "timing_ms": {
+        "intake_ms": {
+          "median": 0.5775,
+          "q1": 0.5311,
+          "q3": 0.6665,
+          "n": 20
+        },
+        "elf_ms": {
+          "median": 0.0002,
+          "q1": 0.0002,
+          "q3": 0.0002,
+          "n": 20
+        },
+        "strings_ms": {
+          "median": 0.0167,
+          "q1": 0.0128,
+          "q3": 0.0212,
+          "n": 20
+        },
+        "yara_ms": {
+          "median": 0.0711,
+          "q1": 0.0599,
+          "q3": 0.0826,
+          "n": 20
+        },
+        "risk_ms": {
+          "median": 0.0068,
+          "q1": 0.005,
+          "q3": 0.0084,
+          "n": 20
+        },
+        "total_ms": {
+          "median": 0.6718,
+          "q1": 0.6112,
+          "q3": 0.7777,
+          "n": 20
+        }
+      }
+    },
+    "clean_elf_stub": {
+      "label_positive": false,
+      "predicted_positive": false,
+      "evidence": {
+        "string_indicator_kinds": [],
+        "yara_rules": []
+      },
+      "timing_ms": {
+        "intake_ms": {
+          "median": 0.6225,
+          "q1": 0.561,
+          "q3": 0.7137,
+          "n": 20
+        },
+        "elf_ms": {
+          "median": 0.0712,
+          "q1": 0.0514,
+          "q3": 0.0785,
+          "n": 20
+        },
+        "strings_ms": {
+          "median": 0.0073,
+          "q1": 0.0047,
+          "q3": 0.009,
+          "n": 20
+        },
+        "yara_ms": {
+          "median": 0.0816,
+          "q1": 0.0706,
+          "q3": 0.0974,
+          "n": 20
+        },
+        "risk_ms": {
+          "median": 0.0097,
+          "q1": 0.0057,
+          "q3": 0.0111,
+          "n": 20
+        },
+        "total_ms": {
+          "median": 0.8109,
+          "q1": 0.7213,
+          "q3": 0.9115,
+          "n": 20
+        }
+      }
+    },
+    "url_only": {
+      "label_positive": true,
+      "predicted_positive": true,
+      "evidence": {
+        "string_indicator_kinds": [
+          "URL"
+        ],
+        "yara_rules": [
+          "LAB-001"
+        ]
+      },
+      "timing_ms": {
+        "intake_ms": {
+          "median": 0.5112,
+          "q1": 0.4903,
+          "q3": 0.5454,
+          "n": 20
+        },
+        "elf_ms": {
+          "median": 0.0002,
+          "q1": 0.0001,
+          "q3": 0.0002,
+          "n": 20
+        },
+        "strings_ms": {
+          "median": 0.0173,
+          "q1": 0.0148,
+          "q3": 0.0213,
+          "n": 20
+        },
+        "yara_ms": {
+          "median": 0.0739,
+          "q1": 0.0686,
+          "q3": 0.0879,
+          "n": 20
+        },
+        "risk_ms": {
+          "median": 0.0097,
+          "q1": 0.0084,
+          "q3": 0.0106,
+          "n": 20
+        },
+        "total_ms": {
+          "median": 0.6141,
+          "q1": 0.5826,
+          "q3": 0.6541,
+          "n": 20
+        }
+      }
+    },
+    "shell_only": {
+      "label_positive": true,
+      "predicted_positive": true,
+      "evidence": {
+        "string_indicator_kinds": [
+          "FILE_PATH",
+          "SHELL_COMMAND"
+        ],
+        "yara_rules": [
+          "LAB-002"
+        ]
+      },
+      "timing_ms": {
+        "intake_ms": {
+          "median": 0.5425,
+          "q1": 0.5199,
+          "q3": 0.5872,
+          "n": 20
+        },
+        "elf_ms": {
+          "median": 0.0479,
+          "q1": 0.0441,
+          "q3": 0.0534,
+          "n": 20
+        },
+        "strings_ms": {
+          "median": 0.0156,
+          "q1": 0.0133,
+          "q3": 0.0198,
+          "n": 20
+        },
+        "yara_ms": {
+          "median": 0.0765,
+          "q1": 0.0684,
+          "q3": 0.0897,
+          "n": 20
+        },
+        "risk_ms": {
+          "median": 0.0107,
+          "q1": 0.0097,
+          "q3": 0.0133,
+          "n": 20
+        },
+        "total_ms": {
+          "median": 0.6889,
+          "q1": 0.6597,
+          "q3": 0.7553,
+          "n": 20
+        }
+      }
+    },
+    "yara_marker": {
+      "label_positive": true,
+      "predicted_positive": false,
+      "evidence": {
+        "string_indicator_kinds": [],
+        "yara_rules": [
+          "LAB-003"
+        ]
+      },
+      "timing_ms": {
+        "intake_ms": {
+          "median": 0.5159,
+          "q1": 0.498,
+          "q3": 0.5325,
+          "n": 20
+        },
+        "elf_ms": {
+          "median": 0.0001,
+          "q1": 0.0001,
+          "q3": 0.0002,
+          "n": 20
+        },
+        "strings_ms": {
+          "median": 0.0106,
+          "q1": 0.01,
+          "q3": 0.0117,
+          "n": 20
+        },
+        "yara_ms": {
+          "median": 0.0639,
+          "q1": 0.0624,
+          "q3": 0.0685,
+          "n": 20
+        },
+        "risk_ms": {
+          "median": 0.0045,
+          "q1": 0.0044,
+          "q3": 0.0053,
+          "n": 20
+        },
+        "total_ms": {
+          "median": 0.5955,
+          "q1": 0.5771,
+          "q3": 0.619,
+          "n": 20
+        }
+      }
+    },
+    "mixed_indicators": {
+      "label_positive": true,
+      "predicted_positive": true,
+      "evidence": {
+        "string_indicator_kinds": [
+          "FILE_PATH",
+          "SHELL_COMMAND",
+          "URL"
+        ],
+        "yara_rules": [
+          "LAB-001",
+          "LAB-002",
+          "LAB-003"
+        ]
+      },
+      "timing_ms": {
+        "intake_ms": {
+          "median": 0.5015,
+          "q1": 0.4978,
+          "q3": 0.5353,
+          "n": 20
+        },
+        "elf_ms": {
+          "median": 0.0456,
+          "q1": 0.0435,
+          "q3": 0.0502,
+          "n": 20
+        },
+        "strings_ms": {
+          "median": 0.019,
+          "q1": 0.0175,
+          "q3": 0.0229,
+          "n": 20
+        },
+        "yara_ms": {
+          "median": 0.0757,
+          "q1": 0.0719,
+          "q3": 0.0846,
+          "n": 20
+        },
+        "risk_ms": {
+          "median": 0.014,
+          "q1": 0.0123,
+          "q3": 0.0157,
+          "n": 20
+        },
+        "total_ms": {
+          "median": 0.6638,
+          "q1": 0.648,
+          "q3": 0.7127,
+          "n": 20
+        }
+      }
+    }
+  },
+  "dynamic": "NOT_MEASURED (sandbox not connected)",
+  "static_plus_dynamic": "NOT_MEASURED (sandbox not connected)"
+}

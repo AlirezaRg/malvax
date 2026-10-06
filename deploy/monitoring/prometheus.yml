@@ -1,0 +1,15 @@
+# Scrapes the MalvaX API and the analysis worker. Both run on the host, so the monitoring
+# containers use host networking (see docker-compose.yml).
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: malvax-api
+    metrics_path: /api/v1/metrics
+    static_configs:
+      - targets: ["127.0.0.1:8080"]
+
+  - job_name: malvax-worker
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["127.0.0.1:9110"]

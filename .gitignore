@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Runtime data (never commit samples, databases or stored uploads)
+storage/
+*.db
+*.part
+malvax-storage/
+runs/
+
+# Frontend build outputs
+frontend/node_modules/
+frontend/.next/
+frontend/next-env.d.ts
+frontend/tsconfig.tsbuildinfo
+
+# Secrets and local environment
+.env
+.env.*
+*.key
+*.pem
